@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+    width: 146px;
+}
+
+#nav, #nav ul {
+    list-style: none;
+    background: url(green-fibers.png);
+    line-height: 1.5em;
+    /*border-radius: 8px;*/
+    min-height: 64px;
+}
+
+    #nav a:link, #nav a:active,
+    
+    #nav a:visited {
+        display: block;
+        padding: 0px 5px;
+        color: white;
+        text-decoration: none;
+    }
+
+    #nav li:hover {
+        background: orangered;
+        /*border-radius: 8px;*/
+    }
+
+
+
+    #nav li {
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        font-family: Tahoma;
+        position: relative;
+    }
+
+    #nav > li {
+        padding: 23px 0px;
+    }
+
+    #nav li:hover ul {
+        display: block;
+    }
+
+    #nav li ul {
+        position: absolute;
+        left: 100%;
+        top: 0px;
+        display: none;
+        width: 100%;
+    }
+
+        
+

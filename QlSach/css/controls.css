@@ -1,0 +1,19 @@
+﻿.normalbutton {
+    /*border-radius:4px;*/
+    padding: 0px 4px;
+    background-color: #ff8f3f;
+    color: white;
+    border: none;
+    margin-right: 3px;
+    padding: 2px;
+}
+
+    .normalbutton:hover {
+        /*color:#ff8f3f;*/
+        background-color: #FF6222;
+    }
+
+.textbox {
+    /*border:solid 1px #ff8f3f;*/
+     
+}

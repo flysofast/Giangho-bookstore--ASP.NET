@@ -1,0 +1,178 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="CustomerMasterPage.master.cs" Inherits="QlSach.CustomerMasterPage" %>
+
+<%@ Register Src="~/UC/Dau.ascx" TagPrefix="uc1" TagName="Dau" %>
+<%@ Register Src="~/UC/UCLoaiSach.ascx" TagPrefix="uc1" TagName="UCLoaiSach" %>
+<%@ Register Src="UC/UCTimKiem.ascx" TagName="UCTimKiem" TagPrefix="uc2" %>
+<%@ Register Src="UC/UCRandomBooks.ascx" TagName="UCRandomBooks" TagPrefix="uc3" %>
+<%@ Register Src="~/UC/UCLogin.ascx" TagPrefix="uc1" TagName="UCLogin" %>
+
+
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Giang Hồ Bookstore - Không bán chịu</title>
+    <link rel="Shortcut icon" href="../images/yinyang.png" />
+    <link href="css/Style2.css" rel="stylesheet" />
+
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <link href="css/image.css" rel="stylesheet" />
+    <script src="Scripts/jquery-ui.js.js"></script>
+    <script src="Scripts/jquery.scrollUp.min.js"></script>
+    <script>
+        $(function () {
+            $.scrollUp({
+                scrollName: 'scrollUp', // Element ID
+                scrollDistance: 50, // Distance from top/bottom before showing element (px)
+                scrollFrom: 'top', // 'top' or 'bottom'
+                scrollSpeed: 150, // Speed back to top (ms)
+                easingType: 'linear', // Scroll to top easing (see http://easings.net/)
+                animation: 'slide', // Fade, slide, none
+                animationInSpeed: 200, // Animation in speed (ms)
+                animationOutSpeed: 200, // Animation out speed (ms)
+                scrollText: '', // Text for element, can contain HTML
+                //scrollTitle: false, // Set a custom <a> title if required. Defaults to scrollText
+                //activeOverlay: '#00FFFF', // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+                //zIndex: 2147483647 // Z-Index for the overlay
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#jr").hide();
+
+          
+            var tc = "default.aspx";
+
+            if ((document.URL.toLowerCase().indexOf(tc.toLowerCase()) >= 0 &&
+                document.URL.toLowerCase().indexOf(tc.toLowerCase() + "?") < 0 || "/" == location.pathname)) {
+                //$("#header").css("display", "none");
+                //$("#maincenter").css("display", "none");
+                //$("#footer").css("display", "none");
+
+
+                setTimeout(function () {
+                    $("#header").show("highlight", 500);
+
+                }, 200)
+                setTimeout(function () {
+                    $("#maincenter").show(500);
+                    $("#footer").show(500);
+
+                }, 701)
+
+                setTimeout(function () {
+                    rightalign();
+
+                }, 1301)
+
+            } else {
+                $("#header").show();
+                $("#maincenter").show();
+                $("#footer").show();
+
+            }
+
+            rightalign();
+
+            $(window).resize(function () {//gọi lại hàm khi thay đổi kích thước trình duyệt 
+                rightalign();
+            });
+            function rightalign() {//xây dựng hàm căn giữa 
+                $('#login').css({ 'top': 25, 'left': ($(window).width() / 2 - $("#login").width()) + $("#topmenu").width() / 2 - 6 })
+            }
+            //$("#login").hide(0);
+
+
+
+            $("#loginlabel").click(function () {
+                //$("#login").effect("easeOutBounce", "slow");
+                //$("#login").slideDown(400);
+                $("#login").toggle("drop", 300);
+                $("input[id*=tbUser]").focus();
+            });
+
+
+            $.scrollUp();
+
+        });
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div id="MainPage" style="position: relative;">
+            <ul id="topmenu" class="menu" style="width: 1200px; position: fixed; top: 0px; z-index: 99;">
+                <li><a href="default.aspx"><span>TRANG CHỦ</span></a></li>
+                <li><a href="hienthigiohang.aspx"><span>XEM GIỎ HÀNG</span></a></li>
+                <li><a href="xoagiohang.aspx"><span>XÓA GIỎ HÀNG</span></a></li>
+                <li><a href="thongtinkhachhang.aspx"><span>ĐẶT MUA</span></a></li>
+                <li><a href="hienthikhachhang.aspx"><span>KHÁCH HÀNG</span></a></li>
+                <li style="float: right" id="loginlabel"><a><span>
+                    <asp:Label ID="lbLogin" runat="server" Text="ĐĂNG NHẬP"></asp:Label></span></a></li>
+            </ul>
+            <div id="login" style="padding-bottom: 5px; position: fixed; z-index: 100; background-color: #2f2f2f; /*border-radius: 0px 0px 8px 8px; */ opacity: 0.9; padding-left: 6px; display: none;">
+                <uc1:UCLogin runat="server" ID="UCLogin" />
+            </div>
+            <div id="page" class="box">
+                <div id="header" style="display: none;">
+                    <uc1:Dau runat="server" ID="Dau" />
+
+                </div>
+                <div id="maincenter" style="display: none;">
+                    <div id="top" class="box">
+                        <uc3:UCRandomBooks ID="UCRandomBooks1" runat="server" />
+                    </div>
+                    <div id="main">
+                        <div id="left" class="box" style="padding-bottom: 0px;">
+                            <%--<div class="box-title">Danh mục sách</div>--%>
+                            <uc1:UCLoaiSach runat="server" ID="UCLoaiSach" />
+                        </div>
+                        <div id="center" class="box" style="text-align: center;">
+                            <div class="box-title">
+                                <asp:Label ID="lbCenterTitle" runat="server" Text="Label"></asp:Label>
+                            </div>
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+                        </div>
+                        <div id="right" class="box" style="vertical-align: top; text-align: center; padding-bottom: 8px;">
+                            <div class="box-title">Tìm kiếm</div>
+                            <uc2:UCTimKiem ID="UCTimKiem1" runat="server" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="footer" style="display: none;">
+            <div id="footer-content">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 400px">&nbsp;</td>
+                        <td style="text-align: left">
+                            <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Names="Tahoma" Font-Size="18pt" ForeColor="White" Text="Bài thực hành lập trình web"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 400px">&nbsp;</td>
+                        <td style="text-align: left">
+                            <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Names="Tahoma" Font-Size="10pt" ForeColor="White" Text="Giáo viên hướng dẫn: Nguyễn Hoàng Hà"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 400px">&nbsp;</td>
+                        <td style="text-align: left">
+                            <asp:Label ID="Label3" runat="server" Font-Bold="True" Font-Names="Tahoma" Font-Size="10pt" ForeColor="White" Text="Sinh viên: Lê Hải Nam"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div id="jr" style="position: absolute; left: 260px; top: 60px; font-size: 11px; font-style: italic; color: red; font-family: Tahoma; text-align: center;">Javascript có thể hiện đang bị vô hiệu hóa. Trang web này cần sử dụng javascript để có thể hoạt động bình thường, vui lòng chờ giây lát hoặc kích hoạt javascript và thử lại.</div>
+    </form>
+</body>
+</html>
+
+

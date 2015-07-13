@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QlSach" Class="QlSachDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=QlSach;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QlSachConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.DangNhap" Member="DangNhaps">
+    <Type Name="DangNhap">
+      <Column Name="TenDangNhap" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MatKhau" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Quyen" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hoten" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.danhmuc" Member="danhmucs">
+    <Type Name="danhmuc">
+      <Column Name="madanhmuc" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tendanhmuc" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="danhmuc_loai" Member="loais" ThisKey="madanhmuc" OtherKey="madanhmuc" Type="loai" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KhachHang" Member="KhachHangs">
+    <Type Name="KhachHang">
+      <Column Name="Makh" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="hoten" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="diachi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SoDT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TenDangNhap" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="KhachHang_hoadon" Member="hoadons" ThisKey="Makh" OtherKey="makh" Type="hoadon" />
+    </Type>
+  </Table>
+  <Table Name="dbo.loai" Member="loais">
+    <Type Name="loai">
+      <Column Name="maloai" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tenloai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="madanhmuc" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="loai_sach" Member="saches" ThisKey="maloai" OtherKey="maloai" Type="sach" />
+      <Association Name="danhmuc_loai" Member="danhmuc" ThisKey="madanhmuc" OtherKey="madanhmuc" Type="danhmuc" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.emails" Member="emails">
+    <Type Name="email">
+      <Column Name="email" Member="email1" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.appreg" Member="appregs">
+    <Type Name="appreg">
+      <Column Name="app" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="added" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.apps" Member="apps">
+    <Type Name="app">
+      <Column Name="app" Member="app1" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="appname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sach" Member="saches">
+    <Type Name="sach">
+      <Column Name="masach" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tensach" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="tacgia" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="soluong" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="gia" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="sotap" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="anh" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="maloai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NgayNhap" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="tomtat" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="sach_ChiTietHoaDon" Member="ChiTietHoaDons" ThisKey="masach" OtherKey="MaSach" Type="ChiTietHoaDon" />
+      <Association Name="loai_sach" Member="loai" ThisKey="maloai" OtherKey="maloai" Type="loai" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChiTietHoaDon" Member="ChiTietHoaDons">
+    <Type Name="ChiTietHoaDon">
+      <Column Name="MaChiTietHD" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaSach" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SoLuongMua" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaHoaDon" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="sach_ChiTietHoaDon" Member="sach" ThisKey="MaSach" OtherKey="masach" Type="sach" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="hoadon_ChiTietHoaDon" Member="hoadon" ThisKey="MaHoaDon" OtherKey="MaHoaDon" Type="hoadon" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.hoadon" Member="hoadons">
+    <Type Name="hoadon">
+      <Column Name="MaHoaDon" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="makh" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="NgayMua" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="damua" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="hoadon_ChiTietHoaDon" Member="ChiTietHoaDons" ThisKey="MaHoaDon" OtherKey="MaHoaDon" Type="ChiTietHoaDon" />
+      <Association Name="KhachHang_hoadon" Member="KhachHang" ThisKey="makh" OtherKey="Makh" Type="KhachHang" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Function Name="dbo.TimSach" Method="TimSach">
+    <Parameter Name="ts" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="TimSachResult">
+      <Column Name="masach" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="tensach" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="tacgia" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="soluong" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="gia" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="sotap" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="anh" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="maloai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NgayNhap" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.XoaKh" Method="XoaKh">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.TimSachTheoLoai" Method="TimSachTheoLoai">
+    <Parameter Name="ml" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="TimSachTheoLoaiResult">
+      <Column Name="masach" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="tensach" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="tacgia" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="soluong" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="gia" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="sotap" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="anh" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="maloai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NgayNhap" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>
